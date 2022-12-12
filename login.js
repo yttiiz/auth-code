@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', handleDocument)
 // Utils
 const createElt = (type) => document.createElement(type)
 const handleErrorMessageContainer = (el, height = 0) => el.style.top = height > 0 ? `${height}px` : height
-const addFocusOnElement = (el) => el.focus()
+const focusOnElement = (el) => el.focus()
+const appendChildrenInElement = (el, ...args) => {
+    for (const arg of args) {
+        el.appendChild(arg)
+    }
+}
 
 /**
  * Inserts an unbreaking space between each group of numbers in the `strong` tag.
@@ -30,17 +35,12 @@ function insertNoneBreakingSpaceInPhoneNumber() {
  */
 function creatingErrorMessage(el) {
     const strong = createElt('strong'), span = createElt('span')
-    let elementHeight
 
     strong.textContent = errorMsgTitle
     span.textContent = errorMsgContent
-    
-    el.appendChild(strong)
-    el.appendChild(span)
-    
-    elementHeight = el.clientHeight
-    handleErrorMessageContainer(el, elementHeight)
+    appendChildrenInElement(el, strong, span)
 
+    handleErrorMessageContainer(el, el.clientHeight)
     el.parentNode.classList.remove('hide')
 }
 
@@ -48,12 +48,19 @@ function handleDocument() {
     inputs.forEach((input, index, inputList) => {
         const lastIndex = inputList.length - 1
 
-        // Put the focus on the first input
-        if (index === 0) addFocusOnElement(input)
+        // Focus on the first input
+        if (index === 0) focusOnElement(input)
         
-        input.addEventListener('input', () => {
+        input.addEventListener('input', (e) => {
 
-            if (index !== lastIndex) addFocusOnElement(inputList[index + 1])
+            // Avoids 'e', '-', '+', '.' and other characters that are not numbers
+            if (isNaN(+(e.data))) {
+
+                e.target.value = ''
+                return
+            }
+
+            if (index !== lastIndex) focusOnElement(inputList.at(index + 1))
             else handleErrorMessageContainer(errorMsgContainer)
         })
     })
