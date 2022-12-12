@@ -45,6 +45,14 @@ function creatingErrorMessage(el) {
 }
 
 function handleDocument() {
+    /**
+     * Avoids `user` to insert more than 1 number in the field.
+     * @param {Event} e Input event
+     * @returns If the input value length is greater than 1, the changed value of the current field, otherwise void.
+     */
+    const checkFieldValueLength = (e) => e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : null
+    let result = ''
+
     inputs.forEach((input, index, inputList) => {
         const lastIndex = inputList.length - 1
 
@@ -55,13 +63,22 @@ function handleDocument() {
 
             // Avoids 'e', '-', '+', '.' and other characters that are not numbers
             if (isNaN(+(e.data))) {
-
                 e.target.value = ''
                 return
             }
 
-            if (index !== lastIndex) focusOnElement(inputList.at(index + 1))
-            else handleErrorMessageContainer(errorMsgContainer)
+            if (index !== lastIndex) {
+                checkFieldValueLength(e)
+                result += e.data
+                
+                focusOnElement(inputList.at(index + 1))
+                
+            } else {
+                checkFieldValueLength(e)
+                result += e.data
+                
+                if (result.length === inputList.length) handleErrorMessageContainer(errorMsgContainer)
+            }
         })
     })
 
