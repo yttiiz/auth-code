@@ -137,6 +137,10 @@ body {
     align-items: center;
 }
 
+.alert-error.hide {
+    visibility: hidden;
+}
+
 .alert-error > span {
     position: relative;
     display: inherit;
@@ -148,10 +152,6 @@ body {
     background: rgb(var(--violet));
     text-align: center;
     transition: top var(--smoothy-anim);
-}
-
-.alert-error > span:hover {
-    top: 0;
 }
 
 .alert-error span strong, .alert-error span span {
