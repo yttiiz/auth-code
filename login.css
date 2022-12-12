@@ -1,29 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;600;700&display=swap');
 
-html {
-    font-size: 62.5%;
+:root {
+    /*--------------< Colors >--------------*/
+    --dark: 53 67 75;
+    --grey: 104 114 120;
+    --violet: 78 38 223;
+    --clear: 255 255 255;
+    
+    /*--------------< Sizes >--------------*/
+    --base-size: 8vw;
+    --min-size: 3rem;
+    --max-size: 4rem;
+    
+    /*--------------< Ratios >--------------*/
+    --main-title-ratio: 1;
+    --desc-text-ratio: .6;
+    --link-ratio: .4;
+    --input-width-ratio: 1.8;
+    --input-font-ratio: 1;
+    --alert-ratio: .5;
+
+    /*--------------< Responsive applications >--------------*/
+    --main-title-clamp: clamp(calc(var(--min-size) * var(--main-title-ratio)), calc(var(--base-size) * var(--main-title-ratio)), calc(var(--max-size) * var(--main-title-ratio)));
+    --desc-text-clamp: clamp(calc(var(--min-size) * var(--desc-text-ratio)), calc(var(--base-size) * var(--desc-text-ratio)), calc(var(--max-size) * var(--desc-text-ratio)));
+    --link-clamp: clamp(calc(var(--min-size) * var(--link-ratio)), calc(var(--base-size) * var(--link-ratio)), calc(var(--max-size) * var(--link-ratio)));
+    --input-width-clamp: clamp(calc(var(--min-size) * var(--input-width-ratio)), calc(var(--base-size) * var(--input-width-ratio)), calc(var(--max-size) * var(--input-width-ratio)));
+    --input-font-clamp: clamp(calc(var(--min-size) * var(--input-font-ratio)), calc(var(--base-size) * var(--input-font-ratio)), calc(var(--max-size) * var(--input-font-ratio)));
+    --alert-clamp: clamp(calc(var(--min-size) * var(--alert-ratio)), calc(var(--base-size) * var(--alert-ratio)), calc(var(--max-size) * var(--alert-ratio)));
+
+    /*--------------< Transition >--------------*/
+    --smoothy-anim: ease .5s;
 }
 
 /*================================================| GENERICS |================================================*/
 
-body {
-    /*--------------< Colors >--------------*/
-    --dark: 15 15 15;
-    --grey: 70 70 70;
-    --violet: 31 15 87;
-    
-    /*--------------< Font sizes >--------------*/
-    --base-size: 8vw;
-    --min-size: 3.2rem;
-    --max-size: 5rem;
-    
-    /*--------------< Responsive ratios >--------------*/
-    --h1-ratio: 1;
-    --p-ratio: .6;
-    --link-ratio: .38;
-    --h1-clamp: clamp(calc(var(--min-size) * var(--h1-ratio)), calc(var(--base-size) * var(--h1-ratio)), calc(var(--max-size) * var(--h1-ratio)));
-    --p-clamp: clamp(calc(var(--min-size) * var(--p-ratio)), calc(var(--base-size) * var(--p-ratio)), calc(var(--max-size) * var(--p-ratio)));
-    --link-clamp: clamp(calc(var(--min-size) * var(--link-ratio)), calc(var(--base-size) * var(--link-ratio)), calc(var(--max-size) * var(--link-ratio)));
+html {
+    font-size: 62.5%;
+}
+
+strong {
+    font-weight: 600;
 }
 
 /*Removing Firefox default appareance of input of type number*/
@@ -46,17 +62,21 @@ body, body * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     color: rgb(var(--dark));
-    font-weight: 300;
 }
 
-.container, .code-auth-content {
+body {
+    overflow: hidden;
+    font-weight: 400;
+}
+
+.container, .code-auth-content, .alert-error {
     display: flex;
     flex-direction: column;
 }
 
 .container {
     justify-content: space-between;
-    width: clamp(28rem, 85%, 75rem);
+    width: clamp(28rem, 85%, 60rem);
     height: 100vh;
     margin: 0 auto;
     padding-top: 15rem;
@@ -69,17 +89,13 @@ body, body * {
 }
 
 .code-auth-content h1 {
-    font-size: var(--h1-clamp);
+    font-size: var(--main-title-clamp);
     font-weight: 700;
     margin-bottom: 1.2rem;
 }
 
 .code-auth-content p {
-    font-size: var(--p-clamp);
-}
-
-.code-auth-content strong {
-    font-weight: 600;
+    font-size: var(--desc-text-clamp);
 }
 
 .code-auth-content a {
@@ -100,15 +116,53 @@ body, body * {
 }
 
 .code-auth-content form input {
-    width: 7.5rem;
-    height: 10.5rem;
+    width: var(--input-width-clamp);
+    aspect-ratio: 1/1.4;
     border-radius: 5rem;
     border: .1rem solid rgb(var(--grey));
-    font-size: 6rem;
+    font-size: var(--input-font-clamp);
+    font-weight: 500;
+    color:  rgb(var(--violet));
     text-align: center;
+    box-shadow: inset 0 0 .5rem rgb(var(--dark) / .3);
 }
 
-.code-auth-content form input:target {
-    color: rgb(var(--violet));
-    border: .1rem solid rgb(var(--violet));
+.code-auth-content form input:focus {
+    outline: rgb(var(--violet));
+    border: .2rem solid rgb(var(--violet));
+    box-shadow: inset 0 0 .5rem rgb(var(--violet) / .3);
+}
+
+.alert-error {
+    align-items: center;
+}
+
+.alert-error > span {
+    position: relative;
+    display: inherit;
+    flex-direction: inherit;
+    width: max-content;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    padding: 2rem 6rem 3rem;
+    background: rgb(var(--violet));
+    text-align: center;
+    transition: top var(--smoothy-anim);
+}
+
+.alert-error > span:hover {
+    top: 0;
+}
+
+.alert-error span strong, .alert-error span span {
+    color: rgb(var(--clear));
+}
+
+.alert-error span strong {
+    font-size: var(--alert-clamp);
+}
+
+.alert-error span span {
+    font-size: var(--alert-clamp);
+    font-weight: 300;
 }
