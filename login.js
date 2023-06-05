@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', handleDocument)
 // =====================| Functions |=====================//
 
 // Utils
-const createElt = (type) => document.createElement(type)
+const createElt = (selector) => document.createElement(selector)
 const handleErrorMessageContainer = (el, height = 0) => el.style.top = height > 0 ? `${height}px` : height
 const focusOnElement = (el) => el.focus()
 const appendChildrenInElement = (el, ...args) => {
