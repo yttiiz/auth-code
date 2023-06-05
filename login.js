@@ -43,6 +43,9 @@ function creatingErrorMessage(el) {
     el.parentNode.classList.remove('hide')
 }
 
+/**
+ * Checks users input values and validate it if it's correct.
+ */
 function handleDocument() {
     const inputs = [].slice.call(document.querySelector('.code-auth-content form').querySelectorAll('input'))
     let result = ''
