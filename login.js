@@ -1,6 +1,5 @@
 // =====================| Elements |=====================//
 
-const inputs = [].slice.call(document.querySelector('.code-auth-content form').querySelectorAll('input'))
 const errorMsgContainer = document.querySelector('.alert-error span')
 const errorMsgTitle = 'Code incorrect', errorMsgContent = 'merci de vérifier votre saisie'
 
@@ -45,12 +44,7 @@ function creatingErrorMessage(el) {
 }
 
 function handleDocument() {
-    /**
-     * Avoids `user` to insert more than 1 number in the field.
-     * @param {Event} e Input event
-     * @returns If the input value length is greater than 1, the changed value of the current field, otherwise void.
-     */
-    const checkFieldValueLength = (e) => e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : null
+    const inputs = [].slice.call(document.querySelector('.code-auth-content form').querySelectorAll('input'))
     let result = ''
 
     inputs.forEach((input, index, inputList) => {
@@ -68,13 +62,10 @@ function handleDocument() {
             }
 
             if (index !== lastIndex) {
-                checkFieldValueLength(e)
                 result += e.data
-                
                 focusOnElement(inputList.at(index + 1))
                 
             } else {
-                checkFieldValueLength(e)
                 result += e.data
                 
                 if (result.length === inputList.length) handleErrorMessageContainer(errorMsgContainer)
