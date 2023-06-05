@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', handleDocument)
 // Utils
 const createElt = (selector) => document.createElement(selector)
 const handleErrorMessageContainer = (el, height = 0) => el.style.top = height > 0 ? `${height}px` : height
-const focusOnElement = (el) => el.focus()
+const focusOnInput = (input) => input.focus()
 const appendChildrenInElement = (el, ...args) => {
     for (const arg of args) {
         el.appendChild(arg)
@@ -54,7 +54,7 @@ function handleDocument() {
         const lastIndex = inputList.length - 1
 
         // Focus on the first input
-        if (index === 0) focusOnElement(input)
+        if (index === 0) focusOnInput(input)
         
         input.addEventListener('input', (e) => {
 
@@ -66,7 +66,7 @@ function handleDocument() {
 
             if (index !== lastIndex) {
                 result += e.data
-                focusOnElement(inputList.at(index + 1))
+                focusOnInput(inputList.at(index + 1))
                 
             } else {
                 result += e.data
