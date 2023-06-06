@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', handleDocument)
 const createElt = (type) => document.createElement(type)
 const handleErrorMessageContainer = (el, height = 0) => el.style.top = height > 0 ? `${height}px` : height
 const focusOnInput = (input) => input.focus()
-const appendChildrenInElement = (el, ...args) => {
-    for (const arg of args) {
-        el.appendChild(arg)
+const appendChildrenInElement = (el, ...childen) => {
+    for (const child of childen) {
+        el.appendChild(child)
     }
 }
 
