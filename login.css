@@ -67,6 +67,7 @@ body, body * {
 body {
     overflow: hidden;
     font-weight: 400;
+    max-height: 100svh;
 }
 
 .container, .code-auth-content, .alert-error {
