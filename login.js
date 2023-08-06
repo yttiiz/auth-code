@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', handleDocument)
 const createElt = (type) => document.createElement(type)
 const handleErrorMessageContainer = (el, height = 0) => el.style.top = height > 0 ? `${height}px` : height
 const focusOnInput = (input) => input.focus()
-const appendChildrenInElement = (el, ...childen) => {
-    for (const child of childen) {
+const appendChildrenInElement = (el, ...children) => {
+    for (const child of children) {
         el.appendChild(child)
     }
 }
@@ -30,17 +30,17 @@ function insertNoneBreakingSpaceInPhoneNumber() {
 
 /**
  * Fills the `span` that contains the error message.
- * @param {HTMLSpanElement} el Error message container
+ * @param {HTMLSpanElement} span Error message container
  */
-function creatingErrorMessage(el) {
-    const strong = createElt('strong'), span = createElt('span')
+function creatingErrorMessage(span) {
+    const strong = createElt('strong'), spanErrorMsg = createElt('span')
 
     strong.textContent = errorMsgTitle
-    span.textContent = errorMsgContent
-    appendChildrenInElement(el, strong, span)
+    spanErrorMsg.textContent = errorMsgContent
+    appendChildrenInElement(span, strong, spanErrorMsg)
 
-    handleErrorMessageContainer(el, el.clientHeight)
-    el.parentNode.classList.remove('hide')
+    handleErrorMessageContainer(span, span.clientHeight)
+    span.parentNode.classList.remove('hide')
 }
 
 /**
@@ -53,12 +53,12 @@ function handleDocument() {
     inputs.forEach((input, index, inputList) => {
         const lastIndex = inputList.length - 1
 
-        // Focus on the first input
+        // Focus on the first input.
         if (index === 0) focusOnInput(input)
         
         input.addEventListener('input', (e) => {
 
-            // Avoids 'e', '-', '+', '.' and other characters that are not numbers
+            // Avoids 'e', '-', '+', '.' and other characters which are not numbers.
             if (isNaN(+(e.data))) {
                 e.target.value = ''
                 return
