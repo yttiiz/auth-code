@@ -44,7 +44,7 @@ function creatingErrorMessage(span) {
 }
 
 /**
- * Checks users input values and validate it if it's correct.
+ * Checks users inputs values and validates them if it's correct.
  */
 function handleDocument() {
     const inputs = [].slice.call(document.querySelector('.code-auth-content form').querySelectorAll('input'))
